@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" /> <!-- Define a codificação de caracteres -->
+  <meta name="viewport" content="width=device-width,initial-scale=1" /> <!-- Responsivo para mobile -->
+  <title>Cafeteria - Yas</title> <!-- Título da página -->
+  
+  <!-- Link para o CSS externo -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="site-header">
+  <div class="container header-inner">
+    
+    <!-- LOGO -->
+    <div class="brand">
+      <div class="logo">CAFEIZADA</div> <!-- Nome da cafeteria -->
+    </div>
+
+    <!-- MENU DE NAVEGAÇÃO -->
+    <nav class="nav">
+      <a href="#home">Home</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#menu">Menu</a>
+      <a href="#avaliacoes">Avaliações</a>
+    </nav>
+
+    <!-- BOTÕES DE AÇÃO -->
+    <div class="actions">
+      <button class="icon-btn" id="searchBtn" title="Pesquisar">🔍</button>
+      <button class="icon-btn" id="cartBtn" title="Carrinho">
+        🛒 <span id="cartCount" class="cart-count">0</span> <!-- Contador de itens do carrinho -->
+      </button>
+    </div>
+
+  </div>
+</header>
+
+<!-- ================= MAIN CONTENT ================= -->
+<main>
+
+  <!-- HERO: seção de destaque inicial -->
+  <section id="home" class="hero">
+    <div class="container hero-inner">
+      <h1>CONHEÇA O MELHOR CAFÉ DA REGIÃO DE SP</h1>
+      <p>Venha experimentar o nosso café — sabor e qualidade que inspiram o seu dia.</p>
+      <a href="#menu" class="btn">Garanta o Seu Agora</a> <!-- Link que leva à seção do menu -->
+    </div>
+  </section>
+
+  <!-- SOBRE: história da cafeteria -->
+  <section id="sobre" class="section container">
+    <h2>NOSSA HISTÓRIA</h2>
+    <p>Somos uma cafeteria que se originou na Inglaterra em 17 de Março de 2005. A idéia do projeto era trazer um lugar quente e aconchegante para o publico.</p>
+    <p>Garantir sempre tudo de melhor qualidades para nossos clientes e amigos é nossa paixão</p>
+  </section>
+
+  <!-- MENU / PRODUTOS: onde os produtos serão renderizados -->
+  <section id="menu" class="section container">
+    <h2>NOSSO MENU</h2>
+    <!-- Div vazia: será preenchida dinamicamente pelo JS -->
+    <div id="productsGrid" class="products-grid"></div>
+  </section>
+
+  <!-- AVALIAÇÕES DOS CLIENTES -->
+  <section id="avaliacoes" class="section container">
+    <h2>NOSSOS CLIENTES</h2>
+    <div class="cards">
+      <!-- Card de cliente -->
+      <div class="card-testimonial">
+        <p>"Ótimo café, recomendo demais!"</p>
+        <p>O atendimento então...é simplesmente perfeito!!</p>
+        <strong>João Da Silva</strong>
+      </div>
+      <div class="card-testimonial">
+        <p>"Bom atendimento e ambiente agradável."</p>
+        <p>Amo vim com as minhas amigas para ficarmos a tarde conversando</p>
+        <strong>Aline Mori</strong>
+      </div>
+      <div class="card-testimonial">
+        <p>"Preços justos e sabor incrível."</p>
+        <p>Simplesmente uma experiencia única!!</p>
+        <strong>Maria Do Like</strong>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ================= CARRINHO (DRAWER) ================= -->
+<aside id="cartDrawer" class="cart-drawer hidden" aria-hidden="true">
+  <!-- Cabeçalho do carrinho -->
+  <div class="cart-header">
+    <h3>Seu Carrinho</h3>
+    <button id="closeCart" class="close-btn">✖</button>
+  </div>
+
+  <!-- Lista de itens do carrinho -->
+  <div id="cartItems" class="cart-items"></div>
+
+  <!-- Rodapé do carrinho -->
+  <div class="cart-footer">
+    <div class="cart-total">Total: <strong id="cartTotal">R$ 0,00</strong></div>
+    <div class="cart-actions">
+      <button id="clearCart" class="btn btn-secondary">Limpar</button>
+      <button id="goCheckout" class="btn">Finalizar Pedido</button>
+    </div>
+  </div>
+</aside>
+
+<!-- ================= CHECKOUT MODAL ================= -->
+<div id="checkoutModal" class="modal hidden" aria-hidden="true">
+  <div class="modal-content">
+    <button id="closeCheckout" class="close-btn">✖</button>
+    <h3>Finalizar Pedido</h3>
+
+    <form id="checkoutForm" class="checkout-form">
+      <!-- Campos do formulário -->
+      <label>
+        Nome completo
+        <input type="text" name="name" required />
+      </label>
+      <label>
+        E-mail
+        <input type="email" name="email" required />
+      </label>
+      <label>
+        Endereço de entrega
+        <textarea name="address" rows="2" required></textarea>
+      </label>
+      <label>
+        Método de pagamento
+        <select name="payment" required>
+          <option value="">Selecione</option>
+          <option>Dinheiro</option>
+          <option>Cartão - simulado</option>
+          <option>Pix</option>
+        </select>
+      </label>
+
+      <!-- Resumo do pedido -->
+      <div class="order-summary">
+        <h4>Resumo do pedido</h4>
+        <div id="checkoutItems"></div> <!-- Itens do carrinho -->
+        <div><strong>Total:</strong> <span id="checkoutTotal">R$ 0,00</span></div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" id="backToCart" class="btn btn-secondary">Voltar</button>
+        <button type="submit" class="btn">Confirmar Pedido</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ================= THANK YOU MODAL ================= -->
+<div id="thanksModal" class="modal hidden" aria-hidden="true">
+  <div class="modal-content centered">
+    <h3>Pedido realizado 🎉</h3>
+    <p>Obrigada! Seu pedido foi recebido. Entraremos em contato pelo e-mail.</p>
+    <button id="closeThanks" class="btn">Fechar</button>
+  </div>
+</div>
+
+<!-- Link para o JavaScript que controla o carrinho, produtos e checkout -->
+<script src="app.js"></script>
+
+</body>
+</html>
